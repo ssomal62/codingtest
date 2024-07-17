@@ -1,27 +1,21 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.StringTokenizer;
 
 public class Main {
-//A가 B보다 큰 경우에는 '>'를 출력한다.
-//A가 B보다 작은 경우에는 '<'를 출력한다.
-//A와 B가 같은 경우에는 '=='를 출력한다.
+    
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-    public void solution(String str){
-        String[] numbers= str.split(" ");
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
 
-        int a = Integer.parseInt(numbers[0]);
-        int b = Integer.parseInt(numbers[1]);
+        String result = A > B ? ">" : A < B ? "<" : "==";
+        bw.write(result);
 
-        String result =  a > b ? ">" : (a < b ? "<" : "==");
-        System.out.println(result);
+        bw.flush();
+        bw.close();
+        br.close();
     }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        int b = sc.nextInt();
-        Main sol = new Main();
-
-        sol.solution(a + " " + b);
-    }
-   
 }
