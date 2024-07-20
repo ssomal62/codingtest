@@ -1,34 +1,39 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class Main {
+    //49808	428
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String str = br.readLine().toUpperCase();
 
-        int count = 0;
-        String result = "";
+        Map<Character, Integer> map = new HashMap<>();
 
-        while (!(str.isEmpty())) {
-            int len = str.length();
 
-            String f = String.valueOf(str.charAt(0));
-
-            str = str.replace(f, "");
-
-            if(count == len - str.length()) {
-                result = "?";
-            }
-
-            if(count < len - str.length()) {
-                count = len - str.length();
-                result = f;
-            }
+        for(char c : str.toCharArray()) {
+            map.merge(c, 1, Integer::sum);
         }
 
-        System.out.println(result);
+        Optional<Map.Entry<Character, Integer>> maxEntry = map.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue());
+
+  
+        if(maxEntry.isPresent()) {
+            int maxValue = maxEntry.get().getValue();
+            char maxKey = maxEntry.get().getKey();
+            
+            map.remove(maxKey);
+            
+            boolean duplicateCheck = map.containsValue(maxValue);
+            System.out.println(duplicateCheck ? "?" : maxKey);
+        }
+
         br.close();
     }
 }
