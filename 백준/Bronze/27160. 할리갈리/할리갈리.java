@@ -10,23 +10,16 @@ public class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        Map<String, Integer> cards =
-                new HashMap<>();
+        Map<String, Integer> cards = new HashMap<>();
 
         int count = Integer.parseInt(br.readLine().trim());
 
         for(int i = 0; i < count; i++) {
-            
             st = new StringTokenizer(br.readLine()," ");
-            
-            String fruit = st.nextToken();
-            int num = Integer.parseInt(st.nextToken());
-
-            cards.merge(fruit, num, Integer::sum);
+            cards.merge(st.nextToken(), Integer.parseInt(st.nextToken()), Integer::sum);
         }
 
         System.out.println(cards.containsValue(5) ? "YES" : "NO");
-
         br.close();
     }
 }
