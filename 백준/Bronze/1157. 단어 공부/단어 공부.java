@@ -1,39 +1,39 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 public class Main {
-    //49808	428
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        String str = br.readLine().toUpperCase();
-
-        Map<Character, Integer> map = new HashMap<>();
-
-
-        for(char c : str.toCharArray()) {
-            map.merge(c, 1, Integer::sum);
+        
+        int[] count = new int[26];  // A-Z 카운트를 위한 배열
+        String str = br.readLine();
+        
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c >= 'a' && c <= 'z') {
+                count[c - 'a']++;
+            } else if (c >= 'A' && c <= 'Z') {
+                count[c - 'A']++;
+            }
         }
-
-        Optional<Map.Entry<Character, Integer>> maxEntry = map.entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue());
-
-  
-        if(maxEntry.isPresent()) {
-            int maxValue = maxEntry.get().getValue();
-            char maxKey = maxEntry.get().getKey();
-            
-            map.remove(maxKey);
-            
-            boolean duplicateCheck = map.containsValue(maxValue);
-            System.out.println(duplicateCheck ? "?" : maxKey);
+        
+        int maxCount = 0;
+        char maxChar = '?';
+        boolean isDuplicate = false;
+        
+        for (int i = 0; i < 26; i++) {
+            if (count[i] > maxCount) {
+                maxCount = count[i];
+                maxChar = (char) (i + 'A');
+                isDuplicate = false;
+            } else if (count[i] == maxCount) {
+                isDuplicate = true;
+            }
         }
-
+        
+        System.out.println(isDuplicate ? "?" : maxChar);
+        
         br.close();
     }
 }
