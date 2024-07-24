@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,10 +11,9 @@ public class Main {
 
         Set<String> users = new HashSet<>();
         int sum = 0;
-        String line;
 
         for(int i = 0; i < n; i++) {
-            line = br.readLine();
+            String line = br.readLine();
             if(line.equals("ENTER")){
                 sum += users.size();
                 users.clear();
